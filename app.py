@@ -31,7 +31,7 @@ st.markdown(
     """
     <style>
     div[data-testid="stMetricValue"] {
-        font-size: 100px;
+        font-size: 80px;
     }
     </style>
     """,
