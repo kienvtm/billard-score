@@ -173,7 +173,7 @@ def update_data(worksheet, df):
     str_list = list(filter(None, worksheet.col_values(1)))
     first_empty_row = len(str_list) + 1
     set_with_dataframe(worksheet, df, row=first_empty_row, col=1, include_index=False, include_column_header=False)
-
+st.write(st.secrets)
 key = st.secrets["connections.gsheets"]["spreadsheet"]
 st.write(key)
 
