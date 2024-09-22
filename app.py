@@ -174,7 +174,7 @@ def update_data(worksheet, df):
     first_empty_row = len(str_list) + 1
     set_with_dataframe(worksheet, df, row=first_empty_row, col=1, include_index=False, include_column_header=False)
 
-key = st.secrets["service_account"]
+key = st.secrets["connections.gsheets"]
 
 sheet_name='Sheet1'
 if st.button("End Game"):
