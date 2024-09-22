@@ -57,8 +57,8 @@ with col1:
                 """,
         ):
         col11, col12, col13 = st.columns(3)
-        # col31, col32, col33 = st.columns(3)
         col21, col22, col23 = st.columns(3)
+        col31, col32, col33 = st.columns(3)
         # col11, col12 = st.columns(2)
         with col11:
             st.button('+1', on_click=increment_counter1,
@@ -70,8 +70,6 @@ with col1:
             st.button('+3', on_click=increment_counter1,
                 kwargs=dict(increment_value=3))
         
-        # with col32:
-        st.metric(label=player1, value=st.session_state.count1)
         
         # with col12:
         with col21:
@@ -83,6 +81,9 @@ with col1:
         with col23:
             st.button('-2', on_click=decrement_counter1,
                 kwargs=dict(decrement_value=2))
+            
+        with col32:
+            st.metric(label=player1, value=st.session_state.count1)
             
 # with st.container(border=True):
 with col2:
@@ -108,9 +109,7 @@ with col2:
                 kwargs=dict(increment_value=3))
         
         # # with col13:
-        # col31, col32, col33 = st.columns(3)
             
-        # with col32:
         # fig = go.Figure()
         # fig.add_trace(go.Indicator(
         #         mode = "number",
@@ -131,4 +130,6 @@ with col2:
             st.button('-2', key='button26', on_click=decrement_counter2,
                 kwargs=dict(decrement_value=2))
         
-        st.metric(label=player2, value=st.session_state.count2)
+        col31, col32, col33 = st.columns(3)
+        with col32:
+            st.metric(label=player2, value=st.session_state.count2)
