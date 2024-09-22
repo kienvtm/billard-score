@@ -186,7 +186,7 @@ key = st.secrets.connections.gsheets.spreadsheet
 sheet_name='Sheet1'
 if st.button("End Game"):
     df = pd.DataFrame({
-        'date_time':[datetime.now(local_timezone)],
+        'date_time':[datetime.now(local_timezone).strftime("%Y-%m-%d %H:%M:%S")],
         'player1':[player1],
         'player1_score':[st.session_state.count1],
         'player2':[player2],
