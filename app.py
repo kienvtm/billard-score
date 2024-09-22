@@ -6,6 +6,12 @@ import gspread
 from google.oauth2.service_account import Credentials
 from gspread_dataframe import set_with_dataframe
 from datetime import datetime
+import pytz
+
+# Get the local time using pytz for timezone awareness
+local_timezone = pytz.timezone('Asia/Ho_Chi_Minh')  # Example: Vietnam timezone
+
+
 
 scopes = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -180,7 +186,7 @@ st.write(key)
 sheet_name='Sheet1'
 if st.button("End Game"):
     df = pd.DataFrame({
-        'date_time':[datetime.now()],
+        'date_time':[datetime.now(local_timezone)],
         'player1':[player1],
         'player1_score':[st.session_state.count1],
         'player2':[player2],
