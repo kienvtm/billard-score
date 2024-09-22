@@ -181,7 +181,7 @@ def update_data(worksheet, df):
     set_with_dataframe(worksheet, df, row=first_empty_row, col=1, include_index=False, include_column_header=False)
 # st.write(st.secrets)
 key = st.secrets.connections.gsheets.spreadsheet
-st.write(key)
+# st.write(key)
 
 sheet_name='Sheet1'
 if st.button("End Game"):
@@ -198,4 +198,4 @@ if st.button("End Game"):
 
 with st.expander('Historical results', expanded=False):
     df = load_data(key, sheet_name='Sheet1')
-    st.dataframe(df)
+    st.dataframe(df.sort_values(by='date_time', ascending=False))
