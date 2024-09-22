@@ -180,11 +180,11 @@ st.write(key)
 sheet_name='Sheet1'
 if st.button("End Game"):
     df = pd.DataFrame({
-        'date_time':datetime.now(),
-        'player1':player1,
-        'player1_score':st.session_state.count1,
-        'player2':player2,
-        'player2_score':st.session_state.count2,
+        'date_time':[datetime.now()],
+        'player1':[player1],
+        'player1_score':[st.session_state.count1],
+        'player2':[player2],
+        'player2_score':[st.session_state.count2],
     })
     update_data(sheet_name, df)
     st.cache_data.clear()
