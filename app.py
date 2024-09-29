@@ -173,16 +173,41 @@ def update_data(worksheet, df):
 key = st.secrets.connections.gsheets.spreadsheet
 # st.write(key)
 
-sheet_name='Sheet1'
+
+gametime = datetime.now(local_timezone).strftime("%Y-%m-%d %H:%M:%S")
+df1 = pd.DataFrame({
+    'date_time':[gametime],
+    'player1':[player1],
+    'player1_score':[st.session_state.hist1],
+    'player2':[player2],
+    'player2_score':[st.session_state.hist2],
+})
+st.dataframe(df1)
+
 if st.button("End Game"):
+    gametime = datetime.now(local_timezone).strftime("%Y-%m-%d %H:%M:%S")
+    sheet_name='Sheet1'
     df = pd.DataFrame({
-        'date_time':[datetime.now(local_timezone).strftime("%Y-%m-%d %H:%M:%S")],
+        'date_time':[gametime],
         'player1':[player1],
         'player1_score':[st.session_state.count1],
+        'player1_score_detail':[st.session_state.hist1],
         'player2':[player2],
         'player2_score':[st.session_state.count2],
+        'player2_score_detail':[st.session_state.hist2],
     })
     update_data(sheet_name, df)
+
+    sheet_name='history_score'
+    df1 = pd.DataFrame({
+        'date_time':[gametime],
+        'player1':[player1],
+        'player1_score':[st.session_state.hist1],
+        'player2':[player2],
+        'player2_score':[st.session_state.hist2],
+    })
+    # update_data(sheet_name, df1)
+
     st.cache_data.clear()
     st.rerun()
 
