@@ -31,7 +31,7 @@ st.markdown(
     """
     <style>
     div[data-testid="stMetricValue"] {
-        font-size: 80px;
+        font-size: 60px;
     }
     </style>
     """,
@@ -47,18 +47,34 @@ if st.button("Clear All"):
 if 'count1' not in st.session_state:
     st.session_state.count1 = 0
     st.session_state.count2 = 0
+    st.session_state.hist1 = []
+    st.session_state.hist2 = []
 
 def increment_counter1(increment_value=0):
     st.session_state.count1 += increment_value
+    st.session_state.hist1.append(increment_value)
 
 def decrement_counter1(decrement_value=0):
     st.session_state.count1 -= decrement_value
+    st.session_state.hist1.append(-decrement_value)
 
 def increment_counter2(increment_value=0):
     st.session_state.count2 += increment_value
+    st.session_state.hist2.append(increment_value)
 
 def decrement_counter2(decrement_value=0):
     st.session_state.count2 -= decrement_value
+    st.session_state.hist2.append(-decrement_value)
+# st.write(st.session_state)
+
+# Function to format the numbers with color
+def format_number(n):
+    if n > 0:
+        return f'<span style="color:green;">{n}</span>'
+    elif n < 0:
+        return f'<span style="color:red;">{n}</span>'
+    else:
+        return f'<span>{n}</span>'
 
 col1, col2 = st.columns(2)
 with col1:
@@ -67,104 +83,78 @@ with col2:
     player2 = st.text_input(label='Nhap ten Player 2', placeholder ='Player 2 name', value ='Player 2')
 
 # with st.container(border=True):
-# with col1:
-with stylable_container(
-        key="green_button",
-        css_styles="""
-            button {
-                background-color: green;
-                color: white;
-                border-radius: 20px;
-            }
-            """,
-    ):
-    col11, col12, col13 = st.columns(3)
-    col21, col22, col23 = st.columns(3)
-    col31, col32, col33 = st.columns(3)
-    # col11, col12 = st.columns(2)
-    with col11:
-        st.button('+1', on_click=increment_counter1,
-            kwargs=dict(increment_value=1))
-    with col12:
-        st.button('+2', on_click=increment_counter1,
-            kwargs=dict(increment_value=2))
-    with col13:
-        st.button('+3', on_click=increment_counter1,
-            kwargs=dict(increment_value=3))
-    
-    
-    # with col12:
-    with col21:
-        st.button('+9', on_click=increment_counter1,
-            kwargs=dict(increment_value=9))
-    with col22:
-        st.button('-3', on_click=decrement_counter1,
-            kwargs=dict(decrement_value=3))
-    with col23:
-        st.button('-2', on_click=decrement_counter1,
-            kwargs=dict(decrement_value=2))
-        
-    # with col32:
-            
-# with st.container(border=True):
-# with col2:
-col3, col4 = st.columns(2)
-with stylable_container(
-        key="orange_button",
-        css_styles="""
-            button {
-                background-color: orange;
-                color: white;
-                border-radius: 20px;
-            }
-            """,
-    ):
-    col11, col12, col13 = st.columns(3)
-    with col11:
-        st.button('+1', key='button21', on_click=increment_counter2,
-            kwargs=dict(increment_value=1))
-    with col12:
-        st.button('+2', key='button22', on_click=increment_counter2,
-            kwargs=dict(increment_value=2))
-    with col13:
-        st.button('+3', key='button23', on_click=increment_counter2,
-            kwargs=dict(increment_value=3))
-    
-    # # with col13:
-        
-    # fig = go.Figure()
-    # fig.add_trace(go.Indicator(
-    #         mode = "number",
-    #         value = st.session_state.count1,
-    #         # domain = {'row': 0, 'column': 1}
-    #         )
-    #         )
-    # st.plotly_chart(fig)
-    
-    col21, col22, col23 = st.columns(3)
-    with col21:
-        st.button('+9', key='button24', on_click=increment_counter2,
-            kwargs=dict(increment_value=9))
-    with col22:
-        st.button('-3', key='button25', on_click=decrement_counter2,
-            kwargs=dict(decrement_value=3))
-    with col23:
-        st.button('-2', key='button26', on_click=decrement_counter2,
-            kwargs=dict(decrement_value=2))
-    
-    col31, col32, col33 = st.columns(3)
-    # with col32:
+with col1:
+    with stylable_container(
+            key="green_button",
+            css_styles="""
+                button {
+                    background-color: green;
+                    color: white;
+                    border-radius: 20px;
+                }
+                """,
+        ):
+        col11, col12, col13 = st.columns(3)
+        with col11:
+            st.button('+1', on_click=increment_counter1,
+                kwargs=dict(increment_value=1))
+            st.button('+9', on_click=increment_counter1,
+                kwargs=dict(increment_value=9))
+        with col12:
+            st.button('+2', on_click=increment_counter1,
+                kwargs=dict(increment_value=2))
+            st.button('-3', on_click=decrement_counter1,
+                kwargs=dict(decrement_value=3))
+        with col13:
+            st.button('+3', on_click=increment_counter1,
+                kwargs=dict(increment_value=3))
+            st.button('-2', on_click=decrement_counter1,
+                kwargs=dict(decrement_value=2))
+with col2:
+    with stylable_container(
+            key="orange_button",
+            css_styles="""
+                button {
+                    background-color: orange;
+                    color: white;
+                    border-radius: 20px;
+                }
+                """,
+        ):
+        col11, col12, col13 = st.columns(3)
+        with col11:
+            st.button('+1', key='button21', on_click=increment_counter2,
+                kwargs=dict(increment_value=1))
+            st.button('+9', key='button24', on_click=increment_counter2,
+                kwargs=dict(increment_value=9))
+        with col12:
+            st.button('+2', key='button22', on_click=increment_counter2,
+                kwargs=dict(increment_value=2))
+            st.button('-3', key='button25', on_click=decrement_counter2,
+                kwargs=dict(decrement_value=3))
+        with col13:
+            st.button('+3', key='button23', on_click=increment_counter2,
+                kwargs=dict(increment_value=3))
+            st.button('-2', key='button26', on_click=decrement_counter2,
+                kwargs=dict(decrement_value=2))
 
-with col3:
+with col1:
     with st.container(border=True):
         col31, col32, col33 = st.columns(3)
         with col32:
             st.metric(label=player1, value=st.session_state.count1)
-with col4:
+            formatted_numbers1 = '<br>'.join([f'{i} : {format_number(n)}' for i, n in enumerate(st.session_state.hist1)])
+            # st.write(st.session_state.hist2)
+            st.markdown(formatted_numbers1, unsafe_allow_html=True)
+            # st.write(st.session_state.hist1)
+with col2:
     with st.container(border=True):
         col31, col32, col33 = st.columns(3)
         with col32:
             st.metric(label=player2, value=st.session_state.count2)
+            formatted_numbers2 = '<br>'.join([f'{i} : {format_number(n)}' for i, n in enumerate(st.session_state.hist2)])
+            # st.write(st.session_state.hist2)
+            st.markdown(formatted_numbers2, unsafe_allow_html=True)
 
 @st.cache_data(ttl=600)
 def load_data(key, sheet_name="Sheet1"):
